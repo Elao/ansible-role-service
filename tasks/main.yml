@@ -1,0 +1,7 @@
+---
+
+- include: type_command.yml
+  when: type == "command"
+
+- include: type_node.yml
+  when: type == "node"

@@ -1,0 +1,7 @@
+[program:{{ name }}]
+command=node {{ path }}
+autostart=true
+autorestart=true
+startretries=20
+stdout_logfile=/var/log/{{ name }}.log
+redirect_stderr=true
