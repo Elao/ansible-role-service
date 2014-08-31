@@ -1,7 +1,11 @@
 ---
 
-- include: type_command.yml
-  when: type == "command"
-
-- include: type_node.yml
-  when: type == "node"
+- name: supervisor templates
+  template: >
+    src={{ item.value['type'] }}/supervisor.conf.j2
+    dest=/etc/supervisor/conf.d/{{ item.key }}.conf
+  when: elao_services|length > 0
+  with_dict: elao_services
+  notify:
+    - supervisor restart
+  sudo: yes

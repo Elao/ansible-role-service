@@ -1,0 +1,7 @@
+[program:{{ item.key }}]
+command=node {{ item.value['path'] }}
+autostart=true
+autorestart=true
+startretries=20
+stdout_logfile=/var/log/{{ item.key }}.log
+redirect_stderr=true
