@@ -1,9 +1,0 @@
----
-
-- name: supervisor template
-  template: >
-    src=supervisor_command.conf.j2
-    dest=/etc/supervisor/conf.d/{{ name }}.conf
-  notify:
-    - supervisor restart
-  sudo: yes
