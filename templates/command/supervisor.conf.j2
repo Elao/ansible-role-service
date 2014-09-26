@@ -1,7 +1,12 @@
 [program:{{ item.key }}]
 command={{ item.value['command'] }}
+{% if item.value['directory']|default('') %}directory={{ item.value['directory'] }}{% endif %}
+
+process_name=%(program_name)s{% if item.value['numprocs']|default(1) > 1 %}_%(process_num)02d{% endif %}
+
 autostart=true
 autorestart=true
 startretries=20
+numprocs={{ item.value['numprocs']|default(1) }}
 stdout_logfile=/var/log/{{ item.key }}.log
 redirect_stderr=true
