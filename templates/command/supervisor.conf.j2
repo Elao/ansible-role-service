@@ -2,7 +2,7 @@
 command={{ item.value['command'] }}
 {% if item.value['directory']|default('') %}directory={{ item.value['directory'] }}{% endif %}
 
-process_name=%(program_name)s{% if item.value['numprocs']|default(1) > 1 %}_%(process_num)02d{% endif %}
+{% if item.value['numprocs']|default(1) > 1 %}process_name=%(process_num)02d{% endif %}
 
 autostart=true
 autorestart=true
