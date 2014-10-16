@@ -1,6 +1,7 @@
-[program:{{ item.key }}]
+[program:{{ ((item.value['project'] ~ '_') if item.value['project'] is defined) ~ item.key }}]
 command=php bin/console {{ item.value['command'] }}
-{% if item.value['directory']|default('') %}directory={{ item.value['directory'] }}{% endif %}
+
+{% if item.value['directory'] is defined or item.value['project'] is defined %}directory={{ item.value['directory']|default('/srv/' ~ item.value['project'] ~ '/symfony' ~ ('/current' if (elao_env == 'prod') else '')) }}{% endif %}
 
 {% if item.value['numprocs']|default(1) > 1 %}process_name=%(process_num)02d{% endif %}
 
@@ -8,5 +9,6 @@ autostart=true
 autorestart=true
 startretries=20
 numprocs={{ item.value['numprocs']|default(1) }}
-stdout_logfile=/var/log/{{ item.key }}.log
+stdout_logfile=/var/log/{{ ((item.value['project'] ~ '_') if item.value['project'] is defined) ~ item.key }}.log
 redirect_stderr=true
+{% if elao_env == 'prod' %}environment=SYMFONY_ENV="prod"{% endif %}

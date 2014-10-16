@@ -14,6 +14,7 @@ Role Variables
 
     elao_services:          # Array of services
       foo:                    # Service name
+        project: foo          # Service project (used to prefix task name, logs and set directory)
         type:    command      # Service type (command|node|symfony)
         command: /bin/bar     # Service command (command and symfony type only)
         path:    /srv/bar.js  # Service path (node type only)

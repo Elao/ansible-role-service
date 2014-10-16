@@ -3,7 +3,7 @@
 - name: supervisor templates
   template: >
     src={{ item.value['type'] }}/supervisor.conf.j2
-    dest=/etc/supervisor/conf.d/{{ item.key }}.conf
+    dest=/etc/supervisor/conf.d/{{ ((item.value['project'] ~ '_') if item.value['project'] is defined) ~ item.key }}.conf
   when: elao_services|length > 0
   with_dict: elao_services
   notify:
