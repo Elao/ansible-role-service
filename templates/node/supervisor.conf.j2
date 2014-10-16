@@ -1,5 +1,5 @@
 [program:{{ ((item.value['project'] ~ '_') if item.value['project'] is defined) ~ item.key }}]
-command=node {{ item.value['path'] }}
+command=node {{ item.value['command'] }}
 
 {% if item.value['directory'] is defined or item.value['project'] is defined %}directory={{ item.value['directory']|default('/srv/' ~ item.value['project']) }}{% endif %}
 
