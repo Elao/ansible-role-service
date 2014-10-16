@@ -1,13 +1,13 @@
-[program:{{ ((item.value['project'] ~ '_') if item.value['project'] is defined) ~ item.key }}]
-command=node {{ item.value['command'] }}
+[program:{{ ((item.project ~ '_') if item.project is defined) ~ item.name }}]
+command=node {{ item.command }}
 
-{% if item.value['directory'] is defined or item.value['project'] is defined %}directory={{ item.value['directory']|default('/srv/' ~ item.value['project']) }}{% endif %}
+{% if item.directory is defined or item.project is defined %}directory={{ item.directory|default('/srv/' ~ item.project) }}{% endif %}
 
-{% if item.value['numprocs']|default(1) > 1 %}process_name=%(process_num)02d{% endif %}
+{% if item.numprocs|default(1) > 1 %}process_name=%(process_num)02d{% endif %}
 
 autostart=true
 autorestart=true
 startretries=20
-numprocs={{ item.value['numprocs']|default(1) }}
-stdout_logfile=/var/log/{{ ((item.value['project'] ~ '_') if item.value['project'] is defined) ~ item.key }}.log
+numprocs={{ item.numprocs|default(1) }}
+stdout_logfile=/var/log/{{ ((item.project ~ '_') if item.project is defined) ~ item.name }}.log
 redirect_stderr=true

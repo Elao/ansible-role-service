@@ -2,10 +2,10 @@
 
 - name: supervisor templates
   template: >
-    src={{ item.value['type'] }}/supervisor.conf.j2
-    dest=/etc/supervisor/conf.d/{{ ((item.value['project'] ~ '_') if item.value['project'] is defined) ~ item.key }}.conf
+    src={{ item.type }}/supervisor.conf.j2
+    dest=/etc/supervisor/conf.d/{{ ((item.project ~ '_') if item.project is defined) ~ item.name }}.conf
   when: elao_services|length > 0
-  with_dict: elao_services
+  with_items: elao_services
   notify:
     - supervisor restart
   sudo: yes
