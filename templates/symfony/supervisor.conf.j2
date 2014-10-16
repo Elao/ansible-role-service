@@ -1,4 +1,4 @@
-[program:{{ ((item.project ~ '_') if item.project is defined) ~ item.name }}]
+[program:{{ ((item.project ~ '_') if item.project is defined else '') ~ item.name }}]
 command=php bin/console {{ item.command }}
 
 {% if item.directory is defined or item.project is defined %}directory={{ item.directory|default('/srv/' ~ item.project ~ '/symfony' ~ ('/current' if (elao_env == 'prod') else '')) }}{% endif %}
@@ -9,6 +9,6 @@ autostart=true
 autorestart=true
 startretries=20
 numprocs={{ item.numprocs|default(1) }}
-stdout_logfile=/var/log/{{ ((item.project ~ '_') if item.project is defined) ~ item.name }}.log
+stdout_logfile=/var/log/{{ ((item.project ~ '_') if item.project is defined else '') ~ item.name }}.log
 redirect_stderr=true
 {% if elao_env == 'prod' %}environment=SYMFONY_ENV="prod"{% endif %}
