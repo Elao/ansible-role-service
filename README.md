@@ -1,7 +1,7 @@
-Ansible Role - Service
-======================
+Ansible Role - Services
+=======================
 
-A service role for elao symfony standard vagrant box
+A services role for elao symfony standard vagrant box
 
 Requirements
 ------------
@@ -35,7 +35,7 @@ Example Playbook
           -
             { project: bar, name: cache, type: symfony, command: cache:clear }
       roles:
-         - { role: elao.service }
+         - { role: elao.services }
 
 
 License
